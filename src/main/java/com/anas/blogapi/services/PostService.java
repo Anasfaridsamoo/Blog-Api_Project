@@ -3,6 +3,7 @@ package com.anas.blogapi.services;
 import com.anas.blogapi.Dto.Request.PostDto;
 import com.anas.blogapi.Dto.Response.PostResDto;
 import com.anas.blogapi.payloads.PageResponse;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface PostService {
 
     PostResDto getPostById(Integer postId);
 
-    PageResponse<PostResDto> getAllPosts(Integer pageNumber, Integer pageSize,String sortBy);
+    Page<PostResDto> getAllPosts(Integer pageNumber, Integer pageSize, String sortBy);
 
     void deletePost(Integer postId);
 

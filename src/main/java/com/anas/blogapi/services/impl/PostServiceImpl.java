@@ -58,10 +58,10 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PageResponse<PostResDto> getAllPosts(Integer pageNumber, Integer pageSize,String sortBy) {
+    public Page<PostResDto> getAllPosts(Integer pageNumber, Integer pageSize,String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<Post> posts = this.postRepo.findAll(pageable);
-        return PostMapper.map(posts,postMapper::PostToResDto);
+        return postMapper.pageToResDto(posts);
     }
 
     @Override

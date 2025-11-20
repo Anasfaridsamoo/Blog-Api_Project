@@ -14,17 +14,20 @@ import java.util.function.Function;
 public interface PostMapper {
     Post DtoReqToPost(PostDto postDto);
     PostResDto PostToResDto(Post post);
-
-    static <T,U>PageResponse<U> map(Page<T> page, Function<T,U> mapper){
-        List<U> PostDto = page.getContent().stream().map(mapper).toList();
-        PageResponse<U> pageResponse = new PageResponse<>();
-        pageResponse.setContent(PostDto);
-        pageResponse.setPageNumber(page.getNumber());
-        pageResponse.setPageSize(page.getSize());
-        pageResponse.setTotalElements(page.getTotalElements());
-        pageResponse.setTotalPages(page.getTotalPages());
-        pageResponse.setLastPage(page.isLast());
-        return pageResponse;
-
+    default Page<PostResDto> pageToResDto(Page<Post> posts) {
+        return posts.map(post -> PostToResDto(post));
     }
+
+//    static <T,U>PageResponse<U> map(Page<T> page, Function<T,U> mapper){
+//        List<U> PostDto = page.getContent().stream().map(mapper).toList();
+//        PageResponse<U> pageResponse = new PageResponse<>();
+//        pageResponse.setContent(PostDto);
+//        pageResponse.setPageNumber(page.getNumber());
+//        pageResponse.setPageSize(page.getSize());
+//        pageResponse.setTotalElements(page.getTotalElements());
+//        pageResponse.setTotalPages(page.getTotalPages());
+//        pageResponse.setLastPage(page.isLast());
+//        return pageResponse;
+//
+//    }
 }

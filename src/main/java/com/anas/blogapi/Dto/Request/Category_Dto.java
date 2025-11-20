@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Category_Dto {
+    private int id;
     @NotEmpty
     private String categoryTitle;
     @NotEmpty

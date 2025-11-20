@@ -16,14 +16,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CommentController {
     private final CommentServiceImpl commentService;
-    @PreAuthorize("@userSecurity.isPostOwner(#userId,authentication)")
+    @PreAuthorize("@userSecurity.isSelf(#userId,authentication)")
     @PostMapping("/post/{postId}/user/{userId}")
     ResponseEntity<CommentResDto> createComment(@RequestBody CommentReqDto commentReqDto, @PathVariable int postId, @PathVariable int userId) {
         CommentResDto createdComment = this.commentService.createComment(commentReqDto, postId, userId);
         return new ResponseEntity<>(createdComment, HttpStatus.CREATED);
     }
-    @PreAuthorize("@userSecurity.isPostOwner(#userId,authentication)")
-    @DeleteMapping("/{commentId}")
+    @DeleteMapping("/admin/{commentId}")
     ResponseEntity<ApiResponse> deleteComment(@PathVariable int commentId) {
         this.commentService.deleteComment(commentId);
         return new ResponseEntity<>(new ApiResponse("Comment deleted successfully", HttpStatus.OK), HttpStatus.OK);

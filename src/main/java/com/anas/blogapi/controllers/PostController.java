@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -51,11 +52,11 @@ public class PostController {
     }
     //getAllPosts
     @GetMapping("/public")
-    ResponseEntity<PageResponse<PostResDto>> getAllPosts(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                                         @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize,
-                                                         @RequestParam(value = "sortBy",defaultValue = "PostId",required = false) String sortBy
+    ResponseEntity<Page<PostResDto>> getAllPosts(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                 @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize,
+                                                 @RequestParam(value = "sortBy",defaultValue = "PostId",required = false) String sortBy
     ){
-        PageResponse<PostResDto> postResponse = postService.getAllPosts(pageNumber, pageSize,sortBy);
+        Page<PostResDto> postResponse = postService.getAllPosts(pageNumber, pageSize,sortBy);
         return ResponseEntity.ok(postResponse);
     }
     //delete post

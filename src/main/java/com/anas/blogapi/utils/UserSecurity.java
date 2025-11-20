@@ -15,7 +15,7 @@ public class UserSecurity {
 
     private final UserRepo userRepo;
 
-    public boolean isPostOwner( int id, Authentication authentication) {
+    public boolean isSelf( int id, Authentication authentication) {
 
         // allow admin
         boolean isAdmin = authentication.getAuthorities().stream()
@@ -26,13 +26,6 @@ public class UserSecurity {
         String loggedEmail = authentication.getName();
 
         return userRepo.findById(id)
-                .map(user -> user.getEmail().equals(loggedEmail))
-                .orElse(false);
-    }
-    public boolean isSelf(Integer userId, Authentication authentication) {
-        String loggedEmail = authentication.getName(); // from Principal
-
-        return userRepo.findById(userId)
                 .map(user -> user.getEmail().equals(loggedEmail))
                 .orElse(false);
     }
